@@ -4,22 +4,22 @@ const getAllTask = (req, res) => {
 };
 
 const createTask = (req, res) => {
-  console.log("Task manager created");
-  res.send("Task manager created");
+  console.log(req.body);
+  res.json(req.body);
 };
 
 const getATask = (req, res) => {
-  console.log("Task manager single Task");
-  res.send("Task manager single task");
+  console.log(`Task manager single Task ${req.params.id}`);
+  res.send(`Task manager single Task ${req.params.id}`);
 };
 
 const updateTask = (req, res) => {
-  console.log("Task manager updated");
-  res.send("Task manager updated");
+  console.log(`Task manager updated ${req.params.id}`);
+  res.send(`Task manager updated ${req.params.id}`);
 };
 
 const removeTask = (req, res) => {
-  console.log("Task manager removed");
-  res.send("Task manager removed");
+  console.log(`Task manager removed ${req.params.id}`);
+  res.send(`Task manager removed ${req.params.id}`);
 };
 module.exports = { getAllTask, createTask, getATask, updateTask, removeTask };

@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const taskRouter = require("./routes/task");
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api/v1/tasks", taskRouter);
 // app.post("/api/v1/tasks", (req, res) => {});
 // app.get("/api/v1/tasks/:id", (req, res) => {});

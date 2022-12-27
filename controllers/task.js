@@ -3,7 +3,7 @@ const Task = require("../model/Task");
 const getAllTask = async (_, res) => {
   try {
     const tasks = await Task.find({});
-    res.json({ data: tasks, count: tasks.length });
+    res.json({ tasks });
   } catch (err) {
     console.log(err.message);
     res.status(500).json(err.message);
@@ -13,7 +13,7 @@ const getAllTask = async (_, res) => {
 const createTask = async (req, res) => {
   try {
     const task = await Task.create(req.body);
-    res.json(task);
+    res.json({ task });
   } catch (err) {
     console.log(err.message);
     res.status(500).json(err.message);
@@ -26,7 +26,7 @@ const getATask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
-    res.json(task);
+    res.json({ task });
   } catch (err) {
     console.error(err.message);
     res.status(500).json(err.message);
@@ -42,7 +42,7 @@ const updateTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "TASK not found" });
     }
-    res.status(200).json(task);
+    res.status(200).json({ task });
   } catch (err) {
     console.error(err.message);
     res.status(500).json(err.message);
@@ -55,7 +55,7 @@ const removeTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
-    res.status(200).json(task);
+    res.status(200).json({ task });
   } catch (error) {
     console.error(err.message);
     res.status(500).json(err.message);

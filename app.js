@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1/tasks", taskRouter);
-
+app.use(express.static("./public"));
 const port = process.env.PORT || 3000;
 
 const start = async () => {

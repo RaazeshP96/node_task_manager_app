@@ -8,7 +8,7 @@ const {
   removeTask,
 } = require("../controllers/task");
 
-router.route("./").get(getAllTask);
+router.route("/").get(getAllTask);
 router.post("/", createTask);
 router.get("/:id", getATask);
 router.patch("/:id", updateTask);

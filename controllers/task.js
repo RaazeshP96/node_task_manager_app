@@ -24,7 +24,7 @@ const getATask = async (req, res) => {
   try {
     const task = await Task.findOne({ _id: req.params.id });
     if (!task) {
-      return res.status(404).json({ message: "not found" });
+      return res.status(404).json({ message: "Task not found" });
     }
     res.json(task);
   } catch (err) {
@@ -34,8 +34,19 @@ const getATask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  console.log(`Task manager removed ${req.params.id}`);
-  res.send(`Task manager removed ${req.params.id}`);
+  try {
+    const task = await Task.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!task) {
+      return res.status(404).json({ message: "TASK not found" });
+    }
+    res.status(200).json(task);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json(err.message);
+  }
 };
 
 const removeTask = async (req, res) => {

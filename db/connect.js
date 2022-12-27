@@ -1,12 +1,15 @@
 // getting-started.js
 const mongoose = require("mongoose");
 
-const connectionString = `mongodb+srv://raazeshp9:<password>@cluster0.0jyoc8c.mongodb.net/?retryWrites=true&w=majority`;
+const connectDB = (url) => {
+  connection(url).catch((err) => console.log(err));
+};
 
-main().catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect(connectionString);
+async function connection(url) {
+  mongoose.set("strictQuery", false);
+  await mongoose.connect(url);
 
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
+
+module.exports = connectDB;

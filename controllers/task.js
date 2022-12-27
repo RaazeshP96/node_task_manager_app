@@ -1,11 +1,18 @@
+const Task = require("../model/Task");
+
 const getAllTask = (req, res) => {
   console.log("Task manager");
   res.send("Task manager");
 };
 
-const createTask = (req, res) => {
-  console.log(req.body);
-  res.json(req.body);
+const createTask = async (req, res) => {
+  try {
+    const task = await Task.create(req.body);
+    res.json(task);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json(err.message);
+  }
 };
 
 const getATask = (req, res) => {

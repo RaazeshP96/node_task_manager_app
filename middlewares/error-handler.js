@@ -1,5 +1,9 @@
+const { CustomErrorHandler } = require("../errors/custom-error");
 const errorHandlerMiddleware = (err, req, res, next) => {
-  return res.status(err.status).json({ msg: err.message });
+  if (err instanceof CustomErrorHandler) {
+    return res.status(err.statusCode).json({ msg: err.message });
+  }
+  return res.status(500).json({ msg: err.message });
 };
 
 module.exports = errorHandlerMiddleware;

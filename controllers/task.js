@@ -11,29 +11,38 @@ const createTask = asyncWrapper(async (req, res) => {
   res.json({ task });
 });
 
-const getATask = asyncWrapper(async (req, res) => {
+const getATask = asyncWrapper(async (req, res, next) => {
   const task = await Task.findOne({ _id: req.params.id });
   if (!task) {
-    return res.status(404).json({ message: "Task not found" });
+    const error = new Error("Task not found");
+    error.message = "Task not found";
+    error.status = 404;
+    return next(error);
   }
   res.json({ task });
 });
 
-const updateTask = asyncWrapper(async (req, res) => {
+const updateTask = asyncWrapper(async (req, res, next) => {
   const task = await Task.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
     runValidators: true,
   });
   if (!task) {
-    return res.status(404).json({ message: "TASK not found" });
+    const error = new Error("Task not found");
+    error.message = "Task not found";
+    error.status = 404;
+    return next(error);
   }
   res.status(200).json({ task });
 });
 
-const removeTask = asyncWrapper(async (req, res) => {
+const removeTask = asyncWrapper(async (req, res, next) => {
   const task = await Task.findOneAndDelete({ _id: req.params.id });
   if (!task) {
-    return res.status(404).json({ message: "Task not found" });
+    const error = new Error("Task not found");
+    error.message = "Task not found";
+    error.status = 404;
+    return next(error);
   }
   res.status(200).json({ task });
 });
